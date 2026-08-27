@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { 
   Shield, 
   ShieldCheck,
+  Calendar,
   Lock, 
   FileText, 
   Terminal, 
@@ -49,6 +50,8 @@ export const Header: React.FC<HeaderProps> = ({
 
   const tabs = [
     { id: 'compliance_dashboard', label: 'Compliance Dashboard', icon: ShieldCheck },
+    { id: 'timeline', label: 'Compliance Timeline', icon: Calendar },
+    { id: 'tri_auditor', label: 'Tri-Auditor Consensus (3 AIs)', icon: Sparkles },
     { id: 'overview', label: 'Overview', icon: Shield },
     { id: 'dogfooding', label: 'Dogfooding Roadmap', icon: Rocket },
     { id: 'ingestion', label: 'Ingestion Hub (APIs & SQL)', icon: Cloud },

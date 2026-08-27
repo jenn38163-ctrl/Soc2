@@ -21,7 +21,8 @@ import {
   Cpu,
   FileCheck2,
   HelpCircle,
-  Play
+  Play,
+  Calendar
 } from 'lucide-react';
 import { multiTenantStore } from '../lib/multiTenantStore';
 import { ComplianceIssue, Tenant, AccountStatus, SubscriptionTier, AwsIntegrationConfig, AwsStsScanResult } from '../types/soc2';
@@ -305,6 +306,17 @@ export default function ComplianceDashboard({ tenantId: initialTenantId, onNavig
             <CreditCard className="w-4 h-4" />
             Stripe Multi-Tenant Billing
           </button>
+
+          {onNavigateTab && (
+            <button
+              id="tab-btn-open-timeline"
+              onClick={() => onNavigateTab('timeline')}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 bg-indigo-900/60 text-indigo-200 hover:bg-indigo-800 hover:text-white border border-indigo-700/50"
+            >
+              <Calendar className="w-4 h-4 text-cyan-400" />
+              Visual Compliance Timeline
+            </button>
+          )}
         </div>
       </div>
 

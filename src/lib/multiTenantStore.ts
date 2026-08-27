@@ -1003,7 +1003,10 @@ class MultiTenantStore {
   }
 
   // Webhook Receiver Simulator
-  public getWebhookLogs(): WebhookEventLog[] {
+  public getWebhookLogs(tenantId?: string): WebhookEventLog[] {
+    if (tenantId) {
+      return this.webhookLogs.filter((w) => w.tenantId === tenantId);
+    }
     return this.webhookLogs;
   }
 

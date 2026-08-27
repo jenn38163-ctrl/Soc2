@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Header } from './components/Header';
 import ComplianceDashboard from './components/ComplianceDashboard';
+import { VisualComplianceTimeline } from './components/VisualComplianceTimeline';
 import { OverviewDashboard } from './components/OverviewDashboard';
 import { DogfoodingGuide } from './components/DogfoodingGuide';
 import { IngestionHub } from './components/IngestionHub';
@@ -15,6 +16,7 @@ import { CiCdPipelineView } from './components/CiCdPipelineView';
 import { PolicyPortal } from './components/PolicyPortal';
 import { IaCViewer } from './components/IaCViewer';
 import { AuditorRoom } from './components/AuditorRoom';
+import { TriAuditorConsensusHub } from './components/TriAuditorConsensusHub';
 import { auditLogStore } from './lib/auditLogger';
 import { multiTenantStore } from './lib/multiTenantStore';
 import { SOC2_CONTROLS } from './lib/complianceMatrix';
@@ -155,6 +157,17 @@ export default function App() {
             tenantId={currentTenant.id}
             onNavigateTab={setActiveTab}
           />
+        )}
+
+        {activeTab === 'timeline' && (
+          <VisualComplianceTimeline
+            tenantId={currentTenant.id}
+            onNavigateTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'tri_auditor' && (
+          <TriAuditorConsensusHub />
         )}
 
         {activeTab === 'overview' && (

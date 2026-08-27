@@ -28,6 +28,7 @@ import confetti from 'canvas-confetti';
 import { SOC2_CONTROLS } from '../lib/complianceMatrix';
 import { multiTenantStore } from '../lib/multiTenantStore';
 import { AuditLogPayload, ComplianceControl, EvidenceSnapshot } from '../types/soc2';
+import { TriAuditorConsensusHub } from './TriAuditorConsensusHub';
 
 interface AuditorRoomProps {
   logs: AuditLogPayload[];
@@ -37,7 +38,7 @@ interface AuditorRoomProps {
 
 export const AuditorRoom: React.FC<AuditorRoomProps> = ({ logs, chainValid, onExportEvidence }) => {
   const currentTenant = multiTenantStore.getCurrentTenant();
-  const [activeTab, setActiveTab] = useState<'checklist' | 'ledger' | 'auditpack'>('checklist');
+  const [activeTab, setActiveTab] = useState<'checklist' | 'ledger' | 'auditpack' | 'tri_auditor'>('checklist');
   const [auditType, setAuditType] = useState<'Type 1' | 'Type 2'>('Type 2');
   
   const [checkedControls, setCheckedControls] = useState<Record<string, boolean>>({
@@ -325,6 +326,21 @@ export const AuditorRoom: React.FC<AuditorRoomProps> = ({ logs, chainValid, onEx
             <span>Compiled CPA Audit Pack</span>
             <span className="text-[10px] px-1.5 py-0.2 bg-slate-950/60 rounded font-mono">
               JSON / PDF Ready
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('tri_auditor')}
+            className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all shrink-0 ${
+              activeTab === 'tri_auditor'
+                ? 'bg-indigo-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <span>Tri-Auditor Multi-Agent Review</span>
+            <span className="text-[10px] px-1.5 py-0.2 bg-indigo-950/80 text-cyan-300 rounded font-mono border border-indigo-700">
+              3 AI Consensus
             </span>
           </button>
         </div>
@@ -672,6 +688,11 @@ export const AuditorRoom: React.FC<AuditorRoomProps> = ({ logs, chainValid, onEx
             </div>
           </div>
         </div>
+      )}
+
+      {/* TAB 4: TRI-AUDITOR MULTI-AGENT CONSENSUS */}
+      {activeTab === 'tri_auditor' && (
+        <TriAuditorConsensusHub />
       )}
     </div>
   );

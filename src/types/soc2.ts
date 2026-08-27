@@ -309,6 +309,102 @@ export interface SteampipeTableDef {
   description: string;
   provider: IntegrationProvider;
   queryExample: string;
-  data: Array<Record<string, unknown>>;
+  data: Record<string, unknown>[];
+}
+
+// -------------------------------------------------------------
+// TRI-AUDITOR MULTI-AGENT CONSENSUS & CONTINUOUS AUDITING TYPES
+// -------------------------------------------------------------
+
+export type AgentAuditorId = 'chatgpt_control' | 'claude_adversarial' | 'gemini_technical';
+export type AgentVerdict = 'PASS' | 'PARTIAL' | 'FAIL' | 'NOT_TESTABLE';
+export type ConsensusStatus = 'CONFIRMED_PASS' | 'DISPUTED' | 'CONFIRMED_FAILURE' | 'PARTIAL' | 'NOT_TESTABLE';
+export type FinalAssuranceStatus = 'READY_FOR_HUMAN_ASSURANCE' | 'HUMAN_ADJUDICATED' | 'REMEDIATION_REQUIRED' | 'INVESTIGATION_NEEDED';
+
+export interface AgentFinding {
+  id: string;
+  controlId: string;
+  agentId: AgentAuditorId;
+  agentName: string;
+  agentRole: string;
+  requirement: string;
+  evidenceExamined: string;
+  testPerformed: string;
+  result: AgentVerdict;
+  severity: IssueSeverity;
+  reason: string;
+  remediation: string;
+  evidenceNeeded: string;
+  attackVector?: string;
+  isRedTeamExploitConfirmed?: boolean;
+  timestamp: string;
+  codeSnippetTested?: string;
+}
+
+export interface EvidenceLineageRecord {
+  evidenceId: string;
+  controlId: string;
+  source: string;
+  timestamp: string;
+  collectionMethod: string;
+  sha256Hash: string;
+  agent: string;
+  testResult: AgentVerdict;
+  reviewer: string;
+  status: 'ACTIVE' | 'STALE' | 'REPLACED' | 'DISPUTED';
+  rawPayloadPreview?: string;
+}
+
+export interface HumanAdjudicationRecord {
+  id: string;
+  reviewerName: string;
+  reviewerEmail: string;
+  reviewerRole: string;
+  decision: 'ACCEPT_PASS' | 'UPHOLD_FAIL' | 'REQUIRE_REMEDIATION';
+  notes: string;
+  adjudicatedAt: string;
+  digitalSignature: string;
+}
+
+export interface ControlConsensusState {
+  controlId: string;
+  controlCode: string;
+  name: string;
+  category: 'Security' | 'Availability' | 'Confidentiality' | 'Change Management';
+  chatgptVerdict: AgentVerdict;
+  claudeVerdict: AgentVerdict;
+  geminiVerdict: AgentVerdict;
+  consensusStatus: ConsensusStatus;
+  finalAssuranceStatus: FinalAssuranceStatus;
+  evidenceStatus: 'VERIFIED' | 'IN_MEMORY_ONLY' | 'UNVERIFIED' | 'SYNTHETIC';
+  evidenceHashes: EvidenceLineageRecord[];
+  findings: AgentFinding[];
+  redTeamExploitTraces: string[];
+  humanAdjudication?: HumanAdjudicationRecord;
+}
+
+export interface LiveDeploymentGateStep {
+  id: string;
+  name: string;
+  stage: 'source' | 'build' | 'deploy' | 'live_endpoint' | 'security_tests' | 'evidence_collection' | 'tri_agent_review' | 'human_assurance';
+  status: 'pending' | 'running' | 'success' | 'failed' | 'warning';
+  details: string;
+  latencyMs?: number;
+  evidenceHash?: string;
+  endpointUrl?: string;
+  lastExecuted?: string;
+  telemetry?: string;
+}
+
+export interface ContinuousAuditingCheck {
+  id: string;
+  name: string;
+  category: 'RBAC' | 'Authentication' | 'Secrets' | 'Dependencies' | 'TLS_Headers' | 'Audit_Logs' | 'Database_Config' | 'Backups' | 'Evidence_Freshness';
+  intervalSeconds: number;
+  lastRunAt: string;
+  status: 'HEALTHY' | 'WARNING' | 'ALERT';
+  lastResult: string;
+  consecutiveSuccesses: number;
+  evidenceLineageId?: string;
 }
 
