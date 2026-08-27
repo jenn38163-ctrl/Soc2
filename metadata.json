@@ -1,0 +1,6 @@
+{
+  "name": "SOC 2 Compliance & Security Control Center",
+  "description": "Production-ready SOC 2 compliance control plane featuring immutable audit logging with PII redaction, RBAC policy enforcement, AES-256-GCM encryption, CI/CD security pipeline gates, and Trust Services Criteria evidence management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
