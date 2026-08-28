@@ -408,3 +408,132 @@ export interface ContinuousAuditingCheck {
   evidenceLineageId?: string;
 }
 
+// -------------------------------------------------------------
+// PRODUCTION HARDENING: EVIDENCE PROVENANCE & WORM LEDGER TYPES
+// -------------------------------------------------------------
+
+export type EvidenceVerificationStatus = 
+  | 'OBSERVED' 
+  | 'VERIFIED' 
+  | 'FAILED' 
+  | 'NOT_CONFIGURED' 
+  | 'NOT_TESTED' 
+  | 'SIMULATED';
+
+export interface WormArchivalReceipt {
+  receiptId: string;
+  lockedAt: string;
+  retentionYears: number;
+  storageTier: 'WORM_IMMUTABLE_S3_COMPLIANCE' | 'WORM_VAULT_IMMUTABLE_LEDGER';
+  sealDigest: string;
+  isImmutableLocked: boolean;
+  chainBlockIndex: number;
+}
+
+export interface ProvenanceEnvelope {
+  collectorMethod: string;
+  collectorVersion: string;
+  transport: string;
+  keyId: string;
+  keyVersion?: number;
+  inputHash: string;
+  outputHash: string;
+  organization?: string;
+  repository?: string;
+  accountArn?: string;
+  capturedByPrincipal: string;
+}
+
+export interface CanonicalEvidenceRecord {
+  evidenceId: string;
+  tenantId: string;
+  controlId: string;
+  sourceSystem: string;
+  collectionTimestamp: string;
+  collectorVersion: string;
+  environment: 'production' | 'staging' | 'sandbox' | 'development';
+  canonicalPayloadHash: string;
+  previousEvidenceHash: string;
+  currentEvidenceHash: string;
+  provenance: ProvenanceEnvelope;
+  verificationStatus: EvidenceVerificationStatus;
+  rawPayload: Record<string, unknown> | Array<Record<string, unknown>>;
+  signatureAttestation: string;
+  wormReceipt?: WormArchivalReceipt;
+  reproducibilityNotes?: string;
+}
+
+export type AuditorConclusion = 
+  | 'SATISFIED' 
+  | 'DEFICIENT' 
+  | 'INCONCLUSIVE' 
+  | 'NON_COMPLIANT' 
+  | 'REJECTED';
+
+export interface StructuredAuditorEvaluation {
+  auditorId: 'auditor_a_control' | 'auditor_b_adversarial' | 'auditor_c_provenance';
+  auditorName: string;
+  auditorRole: 'Control Compliance Auditor' | 'Adversarial Auditor' | 'Evidence/Provenance Auditor';
+  controlId: string;
+  evidenceIds: string[];
+  findings: string[];
+  conclusion: AuditorConclusion;
+  confidence: number; // 0 to 100
+  deficiencies: string[];
+  reasoningMetadata: {
+    assessedCriteria: string[];
+    potentialAttackVectorsExamined?: string[];
+    cryptographicVerificationPassed?: boolean;
+    hashMismatchesDetected?: number;
+    staleEvidenceWarning?: boolean;
+    [key: string]: unknown;
+  };
+  auditorVersion: string;
+  timestamp: string;
+}
+
+export interface GitHubEvidenceObservation {
+  tenantId: string;
+  organization: string;
+  repository: string;
+  control: string;
+  observationStatus: EvidenceVerificationStatus;
+  repoVisibility?: string;
+  defaultBranch?: string;
+  branchProtection?: {
+    required_approving_review_count: number;
+    dismiss_stale_reviews: boolean;
+    require_code_owner_reviews: boolean;
+    allow_force_pushes: boolean;
+    required_status_checks: string[];
+    enforce_admins: boolean;
+  };
+  workflowRuns?: Array<{ id: number; name: string; status: string; conclusion: string; head_branch: string }>;
+  secretScanningAlerts?: Array<{ number: number; state: string; secret_type: string }>;
+  codeScanningAlerts?: Array<{ number: number; state: string; rule_id: string }>;
+  auditEvents?: Array<{ action: string; actor: string; timestamp: string }>;
+  observationTimestamp: string;
+  source: string;
+  evidenceHash: string;
+}
+
+export interface AwsEvidenceObservation {
+  tenantId: string;
+  accountArn: string;
+  accountId: string;
+  roleArn: string;
+  control: string;
+  observationStatus: EvidenceVerificationStatus;
+  iamSummary?: Record<string, number>;
+  passwordPolicy?: Record<string, unknown>;
+  mfaStatus?: { rootMfaActive: boolean; usersWithMfaCount: number; usersWithoutMfaCount: number };
+  cloudTrail?: { trailCount: number; loggingActive: boolean; multiRegionTrails: string[] };
+  s3Security?: { totalBuckets: number; encryptedBuckets: number; publicAccessBlockedBuckets: number };
+  rdsSecurity?: { instancesCount: number; encryptedInstancesCount: number };
+  kmsKeyRotation?: { totalKeys: number; rotatedKeys: number };
+  observationTimestamp: string;
+  source: string;
+  evidenceHash: string;
+}
+
+

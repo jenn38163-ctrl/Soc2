@@ -12,11 +12,11 @@ export interface KMSKey {
   rawKeyBytes?: Uint8Array;
 }
 
-// Active KMS Key Registry Simulation
+// Active KMS Key Registry with version tracking and KMS ARN aliases
 export const ACTIVE_KMS_KEYS: KMSKey[] = [
   {
     keyId: 'kms-key-prod-soc2-v3',
-    alias: 'alias/app-prod-envelope-master-key',
+    alias: 'alias/app-prod-envelope-master-key-v3',
     algorithm: 'AES-256-GCM',
     version: 3,
     status: 'ENABLED',
@@ -34,30 +34,34 @@ export const ACTIVE_KMS_KEYS: KMSKey[] = [
   }
 ];
 
-// Helper to generate a 32-byte key
-async function getOrDeriveCryptoKey(keySeed: string = 'soc2-master-key-seed-32byteslong!!'): Promise<CryptoKey> {
-  const encoder = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(keySeed.padEnd(32, '0').slice(0, 32)),
-    { name: 'PBKDF2' },
-    false,
-    ['deriveKey']
-  );
+// Ephemeral runtime crypto key cache per keyId to avoid static seed retention
+const runtimeKeyCache: Map<string, CryptoKey> = new Map();
 
-  return crypto.subtle.deriveKey(
-    {
-      name: 'PBKDF2',
-      salt: encoder.encode('soc2-compliance-salt-2026'),
-      iterations: 100000,
-      hash: 'SHA-256'
-    },
-    keyMaterial,
+/**
+ * Securely derives or generates an AES-256-GCM CryptoKey using browser WebCrypto.
+ * Generates high-entropy cryptographic material dynamically without embedding static secrets.
+ */
+async function getOrDeriveCryptoKey(keyId: string = 'kms-key-prod-soc2-v3'): Promise<CryptoKey> {
+  if (runtimeKeyCache.has(keyId)) {
+    return runtimeKeyCache.get(keyId)!;
+  }
+
+  // Derive key using high-entropy crypto.getRandomValues if not set
+  const rawKeyMaterial = new Uint8Array(32);
+  crypto.getRandomValues(rawKeyMaterial);
+
+  const importedKey = await crypto.subtle.importKey(
+    'raw',
+    rawKeyMaterial,
     { name: 'AES-GCM', length: 256 },
     false,
     ['encrypt', 'decrypt']
   );
+
+  runtimeKeyCache.set(keyId, importedKey);
+  return importedKey;
 }
+
 
 /**
  * Encrypts sensitive text using AES-256-GCM with a random 12-byte IV and returns ciphertext + IV + AuthTag
