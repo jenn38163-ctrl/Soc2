@@ -47,26 +47,31 @@ export async function computeBlockHash(
 ): Promise<string> {
   const content = `${previousHash}|${eventId}|${timestamp}|${actorId}|${action}|${status}`;
   
-  // Use Web Crypto API or Node crypto
-  if (typeof crypto !== 'undefined' && crypto.subtle) {
+  // Use Web Crypto API (available in modern browsers and Node.js)
+  if (typeof globalThis !== 'undefined' && globalThis.crypto && globalThis.crypto.subtle) {
     const encoder = new TextEncoder();
     const data = encoder.encode(content);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashBuffer = await globalThis.crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
   }
   
-  // Fallback simple hash for environments without WebCrypto
-  let hash = 0;
-  for (let i = 0; i < content.length; i++) {
-    const char = content.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0;
+  try {
+    const nodeCrypto = await import('node:crypto');
+    return nodeCrypto.createHash('sha256').update(content).digest('hex');
+  } catch {
+    // Fallback simple hash for environments without WebCrypto or node:crypto
+    let hash = 0;
+    for (let i = 0; i < content.length; i++) {
+      const char = content.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash |= 0;
+    }
+    return Math.abs(hash).toString(16).padStart(64, '0');
   }
-  return Math.abs(hash).toString(16).padStart(64, '0');
 }
 
-// In-memory immutable log buffer with initial SOC 2 audit evidence seeds
+// In-memory immutable log buffer with initial SOC 2 audit evidence seeds (Real SHA-256 hash chained)
 const INITIAL_LOGS: AuditLogPayload[] = [
   {
     eventId: 'evt_01J8A9K1M2N3P4Q5R6S7T8U9V0',
@@ -78,7 +83,7 @@ const INITIAL_LOGS: AuditLogPayload[] = [
     status: 'SUCCESS',
     timestamp: '2026-08-27T14:10:00.000Z',
     previousHash: '0000000000000000000000000000000000000000000000000000000000000000',
-    currentHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    currentHash: '87b9b0d98a08c6344d6fbf941ea1e94e558401431f3f6c6325e0817400c05c7b',
     metadata: {
       policy: 'AccessControlPolicy_v2.1',
       reviewType: 'Quarterly_Access_Recertification',
@@ -94,8 +99,8 @@ const INITIAL_LOGS: AuditLogPayload[] = [
     ipAddress: '10.0.4.12',
     status: 'SUCCESS',
     timestamp: '2026-08-27T14:35:12.000Z',
-    previousHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    currentHash: '7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5',
+    previousHash: '87b9b0d98a08c6344d6fbf941ea1e94e558401431f3f6c6325e0817400c05c7b',
+    currentHash: '810fa91e423f171e4383b0e506a9d097693b203bcbc4c33583d16d5949538510',
     metadata: {
       role: 'admin',
       requestedAction: 'write',
@@ -112,8 +117,8 @@ const INITIAL_LOGS: AuditLogPayload[] = [
     ipAddress: '203.0.113.88',
     status: 'DENIED',
     timestamp: '2026-08-27T15:02:44.000Z',
-    previousHash: '7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5e7a9c8f01b3d5',
-    currentHash: '4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a',
+    previousHash: '810fa91e423f171e4383b0e506a9d097693b203bcbc4c33583d16d5949538510',
+    currentHash: 'cb6d2bec5e19004a0e9fc22484a540b937e5cae9d2080bad013d9d151f29b150',
     metadata: {
       role: 'viewer',
       requestedAction: 'export',
@@ -130,8 +135,8 @@ const INITIAL_LOGS: AuditLogPayload[] = [
     ipAddress: '192.168.1.102',
     status: 'SUCCESS',
     timestamp: '2026-08-27T15:20:10.000Z',
-    previousHash: '4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a4f8d2b1a9c3e5f7a',
-    currentHash: '1c2b3a4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b',
+    previousHash: 'cb6d2bec5e19004a0e9fc22484a540b937e5cae9d2080bad013d9d151f29b150',
+    currentHash: '41553fbcce33010ad1b809342365ce8579139c92efd76fea6da3495ee1a75d55',
     metadata: {
       algorithm: 'aes-256-gcm',
       keyId: 'kms-key-prod-soc2-v3',
@@ -144,6 +149,7 @@ const INITIAL_LOGS: AuditLogPayload[] = [
 class ImmutableAuditLogStore {
   private logs: AuditLogPayload[] = [...INITIAL_LOGS];
   private subscribers: Array<(log: AuditLogPayload) => void> = [];
+  private writeQueue: Promise<unknown> = Promise.resolve();
 
   public getLogs(): AuditLogPayload[] {
     return [...this.logs];
@@ -152,35 +158,41 @@ class ImmutableAuditLogStore {
   public async record(
     payload: Omit<AuditLogPayload, 'eventId' | 'timestamp' | 'previousHash' | 'currentHash'>
   ): Promise<AuditLogPayload> {
-    const eventId = `evt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const timestamp = new Date().toISOString();
-    const previousLog = this.logs[this.logs.length - 1];
-    const previousHash = previousLog ? (previousLog.currentHash || '0000000000000000000000000000000000000000000000000000000000000000') : '0000000000000000000000000000000000000000000000000000000000000000';
-    
-    // Sanitize metadata to redact PII/Secrets
-    const sanitizedMeta = sanitizePayloadMetadata(payload.metadata);
-    
-    const currentHash = await computeBlockHash(
-      previousHash,
-      eventId,
-      timestamp,
-      payload.actorId,
-      payload.action,
-      payload.status
-    );
+    const appendOperation = async (): Promise<AuditLogPayload> => {
+      const eventId = `evt_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+      const timestamp = new Date().toISOString();
+      const previousLog = this.logs[this.logs.length - 1];
+      const previousHash = previousLog ? (previousLog.currentHash || '0000000000000000000000000000000000000000000000000000000000000000') : '0000000000000000000000000000000000000000000000000000000000000000';
+      
+      // Sanitize metadata to redact PII/Secrets
+      const sanitizedMeta = sanitizePayloadMetadata(payload.metadata);
+      
+      const currentHash = await computeBlockHash(
+        previousHash,
+        eventId,
+        timestamp,
+        payload.actorId,
+        payload.action,
+        payload.status
+      );
 
-    const logEntry: AuditLogPayload = {
-      ...payload,
-      eventId,
-      timestamp,
-      metadata: sanitizedMeta,
-      previousHash,
-      currentHash
+      const logEntry: AuditLogPayload = {
+        ...payload,
+        eventId,
+        timestamp,
+        metadata: sanitizedMeta,
+        previousHash,
+        currentHash
+      };
+
+      this.logs.push(logEntry);
+      this.notify(logEntry);
+      return logEntry;
     };
 
-    this.logs.push(logEntry);
-    this.notify(logEntry);
-    return logEntry;
+    const nextPromise = this.writeQueue.then(appendOperation, appendOperation);
+    this.writeQueue = nextPromise.catch(() => {});
+    return nextPromise;
   }
 
   public subscribe(callback: (log: AuditLogPayload) => void): () => void {
@@ -234,3 +246,40 @@ class ImmutableAuditLogStore {
 }
 
 export const auditLogStore = new ImmutableAuditLogStore();
+
+export const auditLogger = {
+  info: (entry: Record<string, unknown>) => {
+    auditLogStore.record({
+      traceId: (entry.traceId as string) || `trc_${Date.now()}`,
+      action: (entry.action as string) || 'system.info',
+      resource: (entry.resource as string) || 'system',
+      actorId: (entry.actorId as string) || (entry.actor as string) || 'system',
+      ipAddress: (entry.ipAddress as string) || '127.0.0.1',
+      status: 'SUCCESS',
+      metadata: (entry.metadata as Record<string, unknown>) || entry
+    }).catch(console.error);
+  },
+  warn: (entry: Record<string, unknown>) => {
+    auditLogStore.record({
+      traceId: (entry.traceId as string) || `trc_${Date.now()}`,
+      action: (entry.action as string) || 'system.warn',
+      resource: (entry.resource as string) || 'system',
+      actorId: (entry.actorId as string) || (entry.actor as string) || 'system',
+      ipAddress: (entry.ipAddress as string) || '127.0.0.1',
+      status: 'FAILURE',
+      metadata: (entry.metadata as Record<string, unknown>) || entry
+    }).catch(console.error);
+  },
+  error: (entry: Record<string, unknown>) => {
+    auditLogStore.record({
+      traceId: (entry.traceId as string) || `trc_${Date.now()}`,
+      action: (entry.action as string) || 'system.error',
+      resource: (entry.resource as string) || 'system',
+      actorId: (entry.actorId as string) || (entry.actor as string) || 'system',
+      ipAddress: (entry.ipAddress as string) || '127.0.0.1',
+      status: 'FAILURE',
+      metadata: (entry.metadata as Record<string, unknown>) || entry
+    }).catch(console.error);
+  }
+};
+

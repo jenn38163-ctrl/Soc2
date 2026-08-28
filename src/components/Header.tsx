@@ -20,7 +20,8 @@ import {
   Radio, 
   Rocket, 
   Building2,
-  ChevronDown
+  ChevronDown,
+  GitPullRequest
 } from 'lucide-react';
 import { multiTenantStore } from '../lib/multiTenantStore';
 import { Tenant } from '../types/soc2';
@@ -57,6 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'ingestion', label: 'Ingestion Hub (APIs & SQL)', icon: Cloud },
     { id: 'evidence_engine', label: 'Evidence Engine & Workers', icon: Cpu },
     { id: 'remediation', label: 'Remediation Center (Gaps)', icon: AlertOctagon },
+    { id: 'corrections', label: 'Correction & Supersession (v1.0.1)', icon: GitPullRequest },
     { id: 'webhooks', label: 'Real-Time Webhooks', icon: Radio },
     { id: 'audit', label: 'Audit Logs (CC6.8)', icon: Activity },
     { id: 'rbac', label: 'RBAC Policy (CC6.1/6.2)', icon: Users },

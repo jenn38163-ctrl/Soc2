@@ -8,6 +8,7 @@ import { DogfoodingGuide } from './components/DogfoodingGuide';
 import { IngestionHub } from './components/IngestionHub';
 import { EvidenceEngineView } from './components/EvidenceEngineView';
 import { RemediationCenter } from './components/RemediationCenter';
+import { CorrectionLifecycleView } from './components/CorrectionLifecycleView';
 import { WebhookSimulator } from './components/WebhookSimulator';
 import { AuditLogViewer } from './components/AuditLogViewer';
 import { RbacSimulator } from './components/RbacSimulator';
@@ -194,6 +195,10 @@ export default function App() {
 
         {activeTab === 'remediation' && (
           <RemediationCenter onIssueResolved={() => setLogs(auditLogStore.getLogs())} />
+        )}
+
+        {activeTab === 'corrections' && (
+          <CorrectionLifecycleView />
         )}
 
         {activeTab === 'webhooks' && (

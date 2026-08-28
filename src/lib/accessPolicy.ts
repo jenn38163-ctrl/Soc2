@@ -8,6 +8,13 @@ export const DEFAULT_ROLE_PERMISSIONS: Record<Role, Action[]> = {
   viewer: ['read']
 };
 
+export const ROLES_PERMISSIONS = DEFAULT_ROLE_PERMISSIONS;
+
+export function canPerformAction(role: Role, action: Action, customMatrix?: Record<Role, Action[]>): boolean {
+  const permissions = customMatrix || DEFAULT_ROLE_PERMISSIONS;
+  return permissions[role]?.includes(action) ?? false;
+}
+
 export const ACTION_DESCRIPTIONS: Record<Action, string> = {
   read: 'Query and view resources & sensitive data',
   write: 'Create or update records & configuration settings',

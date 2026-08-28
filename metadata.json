@@ -1,6 +1,6 @@
 {
   "name": "SOC 2 Compliance & Security Control Center",
-  "description": "Production-ready SOC 2 compliance control plane featuring Tri-Auditor AI consensus (ChatGPT, Claude adversarial red-team, Gemini technical AST), immutable audit logging with SHA-256 evidence lineage, continuous automated auditing, RBAC policy enforcement, and live deployment security gates.",
+  "description": "Production-ready SOC 2 compliance control plane featuring Tri-Auditor AI consensus, immutable WORM audit logging with SHA-256 evidence lineage, v1.0.1 append-only Correction & Evidence Supersession ledger with dual-control maker-checker approvals, and continuous automated release security gates.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,0 +1,701 @@
+{
+  "lastFlushedAt": "2026-08-28T01:21:05.987Z",
+  "evidenceRecords": {
+    "evd_917ed59c3b34718f_mtc9mngf": {
+      "evidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "tenantId": "tenant-internal",
+      "controlId": "CC6.1",
+      "sourceSystem": "KMS_CONFIG_ENGINE",
+      "collectionTimestamp": "2026-08-28T01:21:05.334Z",
+      "collectorVersion": "v2026.2.0-hardened",
+      "environment": "production",
+      "canonicalPayloadHash": "5ff3be3d6f6c18d49f3486dde2404bbc6abcf2db1e6c00cb7a30686b5567402b",
+      "previousEvidenceHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "currentEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "provenance": {
+        "collectorMethod": "PROVENANCE_CANONICAL_COLLECTOR_JCS_RFC8785",
+        "collectorVersion": "v2026.2.0-hardened",
+        "transport": "TLS_1_3_STRICT",
+        "keyId": "arn:aws:kms:us-east-1:482910481920:key/soc2-prod-envelope-master-key",
+        "keyVersion": 3,
+        "inputHash": "7cbc1a078d781e1955692b310575c8699954006d8ffab42534d09c79e353e28f",
+        "outputHash": "5ff3be3d6f6c18d49f3486dde2404bbc6abcf2db1e6c00cb7a30686b5567402b",
+        "capturedByPrincipal": "secops@internal.soc2"
+      },
+      "verificationStatus": "VERIFIED",
+      "rawPayload": {
+        "keyArn": "arn:aws:kms:us-east-1:123456789012:key/test-key",
+        "rotationEnabled": true
+      },
+      "signatureAttestation": "eb85e167ec2055eb585eaf84c5887d0a377a96e79ffd3e684fb801d7966e7e82",
+      "wormReceipt": {
+        "receiptId": "worm_rcpt_917ed59c3b34718f",
+        "lockedAt": "2026-08-28T01:21:05.334Z",
+        "retentionYears": 7,
+        "storageTier": "WORM_IMMUTABLE_S3_COMPLIANCE",
+        "sealDigest": "f3271fc4fc6e98623e09beabc17cf44464fc38a5620a0f58d2d77fcbb5b57147",
+        "isImmutableLocked": true,
+        "chainBlockIndex": 1
+      },
+      "reproducibilityNotes": "Payload canonically serialized via RFC 8785 JCS; deterministic hash verified."
+    },
+    "evd_a50880c73f6b31b7_mtc9mngh": {
+      "evidenceId": "evd_a50880c73f6b31b7_mtc9mngh",
+      "tenantId": "tenant-alpha",
+      "controlId": "CC6.6",
+      "sourceSystem": "S3_BUCKET_SCANNER",
+      "collectionTimestamp": "2026-08-28T01:21:05.343Z",
+      "collectorVersion": "v2026.2.0-hardened",
+      "environment": "production",
+      "canonicalPayloadHash": "d9f93ec1afc1aa8be2c3a28be26a46162b88396b9ce98ee5c83987bc69bdda6e",
+      "previousEvidenceHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "currentEvidenceHash": "a50880c73f6b31b7549a233c34beab046bb2f1341c8f8bded1d6728578e32169",
+      "provenance": {
+        "collectorMethod": "PROVENANCE_CANONICAL_COLLECTOR_JCS_RFC8785",
+        "collectorVersion": "v2026.2.0-hardened",
+        "transport": "TLS_1_3_STRICT",
+        "keyId": "arn:aws:kms:us-east-1:482910481920:key/soc2-prod-envelope-master-key",
+        "keyVersion": 3,
+        "inputHash": "5521c27fe5049a265e7bba37fe9f2642a0a5d9e08ea57366636dd4531d71258b",
+        "outputHash": "d9f93ec1afc1aa8be2c3a28be26a46162b88396b9ce98ee5c83987bc69bdda6e",
+        "capturedByPrincipal": "alpha-admin@client-alpha.com"
+      },
+      "verificationStatus": "VERIFIED",
+      "rawPayload": {
+        "bucketName": "alpha-confidential-logs",
+        "encrypted": true
+      },
+      "signatureAttestation": "350c3f7b9153b4441d8b63a9d586d3cf8794ab7db5df3fa6e6625cf78e2ff03b",
+      "wormReceipt": {
+        "receiptId": "worm_rcpt_a50880c73f6b31b7",
+        "lockedAt": "2026-08-28T01:21:05.343Z",
+        "retentionYears": 7,
+        "storageTier": "WORM_IMMUTABLE_S3_COMPLIANCE",
+        "sealDigest": "7375c6ce91bb4305144f13e4b145f983b1969709c12c8daf1283de33d05aaaa7",
+        "isImmutableLocked": true,
+        "chainBlockIndex": 1
+      },
+      "reproducibilityNotes": "Payload canonically serialized via RFC 8785 JCS; deterministic hash verified."
+    },
+    "evd_bcdb8520a0e70f9f_mtc9mngs": {
+      "evidenceId": "evd_bcdb8520a0e70f9f_mtc9mngs",
+      "tenantId": "tenant-internal",
+      "controlId": "CC6.1",
+      "sourceSystem": "KMS_CONFIG_ENGINE [SUPERSEDED via Correction corr_mtc9mngk_nmjzj6]",
+      "collectionTimestamp": "2026-08-28T01:21:05.356Z",
+      "collectorVersion": "v2026.2.0-hardened",
+      "environment": "production",
+      "canonicalPayloadHash": "4b448eeba2a3842c8e670aaa09ff2369433ec7da86e4441ed154f59be16dad21",
+      "previousEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "currentEvidenceHash": "bcdb8520a0e70f9f39a3313fd46f9d825ab2ebef755381b40c3310653d508924",
+      "provenance": {
+        "collectorMethod": "PROVENANCE_CANONICAL_COLLECTOR_JCS_RFC8785",
+        "collectorVersion": "v2026.2.0-hardened",
+        "transport": "TLS_1_3_STRICT",
+        "keyId": "arn:aws:kms:us-east-1:482910481920:key/soc2-prod-envelope-master-key",
+        "keyVersion": 3,
+        "inputHash": "89cca0eb3d058ef4696f34ff372cb5120db7b8c2a2379369c2614eedb8ec86c4",
+        "outputHash": "4b448eeba2a3842c8e670aaa09ff2369433ec7da86e4441ed154f59be16dad21",
+        "capturedByPrincipal": "editor@internal.soc2"
+      },
+      "verificationStatus": "VERIFIED",
+      "rawPayload": {
+        "keyArn": "arn:aws:kms:us-east-1:123456789012:key/test-key",
+        "rotationEnabled": true,
+        "descriptionNote": "Updated KMS key description",
+        "_supersessionLineage": {
+          "supersededEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+          "parentEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+          "correctionId": "corr_mtc9mngk_nmjzj6",
+          "correctionType": "METADATA_CORRECTION",
+          "reason": "Correcting typo in KMS key description metadata",
+          "appliedBy": "editor@internal.soc2",
+          "appliedAt": "2026-08-28T01:21:05.356Z"
+        }
+      },
+      "signatureAttestation": "5e5b58d951e061f60afdd5774aaa468a7113d54d408d525c0ebd1d0717d18e3f",
+      "wormReceipt": {
+        "receiptId": "worm_rcpt_bcdb8520a0e70f9f",
+        "lockedAt": "2026-08-28T01:21:05.356Z",
+        "retentionYears": 7,
+        "storageTier": "WORM_IMMUTABLE_S3_COMPLIANCE",
+        "sealDigest": "dbcb8a4554465bc5315b3774893f2bfbe626cc9efbbe986baaeba718511ba56f",
+        "isImmutableLocked": true,
+        "chainBlockIndex": 1
+      },
+      "reproducibilityNotes": "Supersedes evd_917ed59c3b34718f_mtc9mngf under Correction ID corr_mtc9mngk_nmjzj6"
+    },
+    "evd_ff6c46a94ca7cb8a_mtc9mnyb": {
+      "evidenceId": "evd_ff6c46a94ca7cb8a_mtc9mnyb",
+      "tenantId": "tenant-test-hardening",
+      "controlId": "CC6.6",
+      "sourceSystem": "KMS Keystore Audit",
+      "collectionTimestamp": "2026-08-28T01:21:05.985Z",
+      "collectorVersion": "v2026.2.0-hardened",
+      "environment": "production",
+      "canonicalPayloadHash": "7632a25b0dd9c74fd7ead190354f59ffe05b6114e9109ea1eac56a8804d565e4",
+      "previousEvidenceHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "currentEvidenceHash": "ff6c46a94ca7cb8ae35d9297bfc8c7bbce4cee6c2c23703af2d554ef100d9263",
+      "provenance": {
+        "collectorMethod": "PROVENANCE_CANONICAL_COLLECTOR_JCS_RFC8785",
+        "collectorVersion": "v2026.2.0-hardened",
+        "transport": "TLS_1_3_STRICT",
+        "keyId": "arn:aws:kms:us-east-1:482910481920:key/soc2-prod-envelope-master-key",
+        "keyVersion": 3,
+        "inputHash": "0f49756285f0c0d63a3187f2365d5afa11cc063eee750507abe87181d5097756",
+        "outputHash": "7632a25b0dd9c74fd7ead190354f59ffe05b6114e9109ea1eac56a8804d565e4",
+        "capturedByPrincipal": "KMS Automated Scanner"
+      },
+      "verificationStatus": "OBSERVED",
+      "rawPayload": {
+        "keyId": "arn:aws:kms:us-east-1:482910481920:key/soc2-prod-envelope-master-key",
+        "rotationEnabled": true,
+        "spec": "SYMMETRIC_DEFAULT"
+      },
+      "signatureAttestation": "7983334485612037c29b4bbbddcb91c422c61f9d7a00a82f30f37c3f09a4b093",
+      "wormReceipt": {
+        "receiptId": "worm_rcpt_ff6c46a94ca7cb8a",
+        "lockedAt": "2026-08-28T01:21:05.985Z",
+        "retentionYears": 7,
+        "storageTier": "WORM_IMMUTABLE_S3_COMPLIANCE",
+        "sealDigest": "c4e0287bf9f03331791dea00abe24d5dc3208558f91d502f7a9caafada5ae621",
+        "isImmutableLocked": true,
+        "chainBlockIndex": 1
+      },
+      "reproducibilityNotes": "Payload canonically serialized via RFC 8785 JCS; deterministic hash verified."
+    }
+  },
+  "policySignatures": {
+    "tenant-test-hardening": [
+      {
+        "id": "sig_test_1787880065983",
+        "tenantId": "tenant-test-hardening",
+        "policyId": "pol_soc2_sec_01",
+        "employeeId": "emp_auditor",
+        "employeeName": "Elena Rostova",
+        "employeeEmail": "auditor@company.internal",
+        "role": "auditor",
+        "ipAddress": "10.0.0.5",
+        "userAgent": "Node-Test-Runner",
+        "signedAt": "2026-08-28T01:21:05.983Z",
+        "certificateHash": "1e609199f510b7b6234aa2fa0298fe9655c6f71383d38843102b2c275b3d249d",
+        "versionSigned": "2026.1"
+      }
+    ]
+  },
+  "policies": {},
+  "integrations": {},
+  "auditorEvaluations": {},
+  "auditEvents": [],
+  "corrections": {
+    "corr_mtc9mngk_nmjzj6": {
+      "id": "corr_mtc9mngk_nmjzj6",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "APPLIED",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Correcting typo in KMS key description metadata",
+      "proposedChanges": {
+        "descriptionNote": "Updated KMS key description"
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.348Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mngq_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.348Z",
+          "reason": "Correcting typo in KMS key description metadata",
+          "auditLogEventId": "evt_1787880065354_yzqgiph",
+          "transitionHash": "0ec1320bc67e5d2b1aad68e8236f72325b0ff5bd46fc8dbfbc02477606b452ec"
+        },
+        {
+          "transitionId": "tr_mtc9mngr_1",
+          "fromStatus": "OPEN",
+          "toStatus": "APPROVED",
+          "actorId": "usr_checker_1",
+          "actorEmail": "checker@internal.soc2",
+          "actorRole": "admin",
+          "action": "APPROVE",
+          "timestamp": "2026-08-28T01:21:05.355Z",
+          "reason": "Correction approved after dual-control review.",
+          "auditLogEventId": "evt_1787880065355_0mmxyen",
+          "transitionHash": "39423721e3b988eb9d6421e2a13b0c4f4438d5a2a78a7f88e771101560420345"
+        },
+        {
+          "transitionId": "tr_mtc9mngu_2",
+          "fromStatus": "APPROVED",
+          "toStatus": "APPLIED",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "APPLY",
+          "timestamp": "2026-08-28T01:21:05.356Z",
+          "auditLogEventId": "evt_1787880065357_mf6yrx9",
+          "transitionHash": "9a266664cf89c92ece6a89b82724dfdf87d2ce26a66e6a568d0f9da066eede3f"
+        }
+      ],
+      "stateTransitionHash": "9a266664cf89c92ece6a89b82724dfdf87d2ce26a66e6a568d0f9da066eede3f",
+      "approverUserId": "usr_checker_1",
+      "approverUserEmail": "checker@internal.soc2",
+      "approverRole": "admin",
+      "approvedAt": "2026-08-28T01:21:05.355Z",
+      "supersedingEvidenceId": "evd_bcdb8520a0e70f9f_mtc9mngs",
+      "supersedingEvidenceHash": "bcdb8520a0e70f9f39a3313fd46f9d825ab2ebef755381b40c3310653d508924",
+      "appliedByUserId": "usr_editor_1",
+      "appliedAt": "2026-08-28T01:21:05.356Z"
+    },
+    "corr_mtc9mngx_lhru8z": {
+      "id": "corr_mtc9mngx_lhru8z",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Correction record created for deletion test",
+      "proposedChanges": {
+        "test": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.361Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mngy_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.361Z",
+          "reason": "Correction record created for deletion test",
+          "auditLogEventId": "evt_1787880065362_5ilfin4",
+          "transitionHash": "63b219d03eff18291b7485f58e20497292abcaf79328ef2eb7a615c3a4f7f554"
+        }
+      ],
+      "stateTransitionHash": "63b219d03eff18291b7485f58e20497292abcaf79328ef2eb7a615c3a4f7f554"
+    },
+    "corr_mtc9mnh0_8pblw6": {
+      "id": "corr_mtc9mnh0_8pblw6",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Attempting self-approval under admin maker role",
+      "proposedChanges": {
+        "field": "value"
+      },
+      "requestedByUserId": "usr_maker_1",
+      "requestedByUserEmail": "maker@internal.soc2",
+      "requestedByUserRole": "admin",
+      "requestedAt": "2026-08-28T01:21:05.364Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnh1_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_maker_1",
+          "actorEmail": "maker@internal.soc2",
+          "actorRole": "admin",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.364Z",
+          "reason": "Attempting self-approval under admin maker role",
+          "auditLogEventId": "evt_1787880065365_qriy54i",
+          "transitionHash": "d3e270ddcc170c325471a1778c08cd34602c9bc2b05662f7d9e97825b85ca653"
+        }
+      ],
+      "stateTransitionHash": "d3e270ddcc170c325471a1778c08cd34602c9bc2b05662f7d9e97825b85ca653"
+    },
+    "corr_mtc9mnh3_jp5b6y": {
+      "id": "corr_mtc9mnh3_jp5b6y",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Actor correlation verification test",
+      "proposedChanges": {
+        "verified": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.367Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnh4_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.367Z",
+          "reason": "Actor correlation verification test",
+          "auditLogEventId": "evt_1787880065368_236k55r",
+          "transitionHash": "6c0e92e7a54dfda315f8ab6077e6940b7bbc685715984b9559eacc2b28e4c53c"
+        }
+      ],
+      "stateTransitionHash": "6c0e92e7a54dfda315f8ab6077e6940b7bbc685715984b9559eacc2b28e4c53c"
+    },
+    "corr_mtc9mnh7_94k8tj": {
+      "id": "corr_mtc9mnh7_94k8tj",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Testing approval role boundary enforcement",
+      "proposedChanges": {
+        "test": true
+      },
+      "requestedByUserId": "usr_maker_1",
+      "requestedByUserEmail": "maker@internal.soc2",
+      "requestedByUserRole": "admin",
+      "requestedAt": "2026-08-28T01:21:05.371Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnh9_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_maker_1",
+          "actorEmail": "maker@internal.soc2",
+          "actorRole": "admin",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.371Z",
+          "reason": "Testing approval role boundary enforcement",
+          "auditLogEventId": "evt_1787880065372_e6o0afk",
+          "transitionHash": "8c4915547f93c60468d7fc6ea4e47c22d58dfb8f2992629ec101adddf6a7c28e"
+        }
+      ],
+      "stateTransitionHash": "8c4915547f93c60468d7fc6ea4e47c22d58dfb8f2992629ec101adddf6a7c28e"
+    },
+    "corr_mtc9mnhb_xtvydx": {
+      "id": "corr_mtc9mnhb_xtvydx",
+      "tenantId": "tenant-alpha",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.6",
+      "originalEvidenceId": "evd_a50880c73f6b31b7_mtc9mngh",
+      "originalEvidenceHash": "a50880c73f6b31b7549a233c34beab046bb2f1341c8f8bded1d6728578e32169",
+      "reason": "Legitimate alpha tenant correction submission",
+      "proposedChanges": {
+        "tag": "alpha"
+      },
+      "requestedByUserId": "alpha_maker",
+      "requestedByUserEmail": "maker@alpha.com",
+      "requestedByUserRole": "admin",
+      "requestedAt": "2026-08-28T01:21:05.375Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnhe_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "alpha_maker",
+          "actorEmail": "maker@alpha.com",
+          "actorRole": "admin",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.375Z",
+          "reason": "Legitimate alpha tenant correction submission",
+          "auditLogEventId": "evt_1787880065378_ld6axel",
+          "transitionHash": "7f6859349267b3f1c7e9972b24fb5116b8f2ea7dcdb72c930c1cc4213cb75dd8"
+        }
+      ],
+      "stateTransitionHash": "7f6859349267b3f1c7e9972b24fb5116b8f2ea7dcdb72c930c1cc4213cb75dd8"
+    },
+    "corr_mtc9mnhg_7fbxmq": {
+      "id": "corr_mtc9mnhg_7fbxmq",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "APPROVED",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Valid correction for replay testing",
+      "proposedChanges": {
+        "note": "replay test"
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.380Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnhp_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.380Z",
+          "reason": "Valid correction for replay testing",
+          "auditLogEventId": "evt_1787880065388_gnqo83l",
+          "transitionHash": "afa8c53b81403dbe616cca78b208471b032e0729b9a873076fbf96f4dc51640e"
+        },
+        {
+          "transitionId": "tr_mtc9mnhs_1",
+          "fromStatus": "OPEN",
+          "toStatus": "APPROVED",
+          "actorId": "usr_checker_1",
+          "actorEmail": "checker@internal.soc2",
+          "actorRole": "admin",
+          "action": "APPROVE",
+          "timestamp": "2026-08-28T01:21:05.391Z",
+          "reason": "Correction approved after dual-control review.",
+          "auditLogEventId": "evt_1787880065392_s6pxcqf",
+          "transitionHash": "820922de19bb9f430b209907799d9221993631f20d6875dd03a7b73ad4f545a4"
+        }
+      ],
+      "stateTransitionHash": "820922de19bb9f430b209907799d9221993631f20d6875dd03a7b73ad4f545a4",
+      "approverUserId": "usr_checker_1",
+      "approverUserEmail": "checker@internal.soc2",
+      "approverRole": "admin",
+      "approvedAt": "2026-08-28T01:21:05.391Z"
+    },
+    "corr_mtc9mnhu_2e0z32": {
+      "id": "corr_mtc9mnhu_2e0z32",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Testing apply without approval bypass",
+      "proposedChanges": {
+        "illegalApply": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.394Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnhx_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.394Z",
+          "reason": "Testing apply without approval bypass",
+          "auditLogEventId": "evt_1787880065397_5lu4moq",
+          "transitionHash": "fc02da0ff1e454ed201f23b4bebb2c71ef7772fc1a292432e7e142acb7fa11f0"
+        }
+      ],
+      "stateTransitionHash": "fc02da0ff1e454ed201f23b4bebb2c71ef7772fc1a292432e7e142acb7fa11f0"
+    },
+    "corr_mtc9mnhz_3d1srn": {
+      "id": "corr_mtc9mnhz_3d1srn",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "APPROVED",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Testing verification bypass before application",
+      "proposedChanges": {
+        "test": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.399Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mni0_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.399Z",
+          "reason": "Testing verification bypass before application",
+          "auditLogEventId": "evt_1787880065400_fqwo50z",
+          "transitionHash": "50a964f532c91672947d3980cf897ecbf87fcc487e0e6c36911ee8e47253fdaf"
+        },
+        {
+          "transitionId": "tr_mtc9mni1_1",
+          "fromStatus": "OPEN",
+          "toStatus": "APPROVED",
+          "actorId": "usr_checker_1",
+          "actorEmail": "checker@internal.soc2",
+          "actorRole": "admin",
+          "action": "APPROVE",
+          "timestamp": "2026-08-28T01:21:05.401Z",
+          "reason": "Correction approved after dual-control review.",
+          "auditLogEventId": "evt_1787880065401_jtowm4z",
+          "transitionHash": "6fce1f5217d750fff943967b90fb058415507877e5a30dd9ecb2c4c78f05def7"
+        }
+      ],
+      "stateTransitionHash": "6fce1f5217d750fff943967b90fb058415507877e5a30dd9ecb2c4c78f05def7",
+      "approverUserId": "usr_checker_1",
+      "approverUserEmail": "checker@internal.soc2",
+      "approverRole": "admin",
+      "approvedAt": "2026-08-28T01:21:05.401Z"
+    },
+    "corr_mtc9mni2_a56p4w": {
+      "id": "corr_mtc9mni2_a56p4w",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Testing closure without verification bypass",
+      "proposedChanges": {
+        "test": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.402Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mni8_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.402Z",
+          "reason": "Testing closure without verification bypass",
+          "auditLogEventId": "evt_1787880065408_vv5anb0",
+          "transitionHash": "a442f821e9b2e882d37b38c186c99435b9382265266016ebaa67f8f7efc7be51"
+        }
+      ],
+      "stateTransitionHash": "a442f821e9b2e882d37b38c186c99435b9382265266016ebaa67f8f7efc7be51"
+    },
+    "corr_mtc9mnia_se1etk": {
+      "id": "corr_mtc9mnia_se1etk",
+      "tenantId": "tenant-internal",
+      "type": "EMERGENCY_CORRECTION",
+      "status": "OPEN",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Urgent certificate revocation remediation",
+      "supportingEvidence": "CERT_REVOCATION_RECEIPT_1092",
+      "proposedChanges": {
+        "revokedCert": "cert_123"
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.410Z",
+      "isEmergency": true,
+      "emergencyJustification": "Critical zero-day vulnerability requires immediate control correction",
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnic_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.410Z",
+          "reason": "Urgent certificate revocation remediation",
+          "auditLogEventId": "evt_1787880065412_41bqvd0",
+          "transitionHash": "73e93714e79764152656899556b8edbdd6fa1237c4bca377534625f45dd59934"
+        }
+      ],
+      "stateTransitionHash": "73e93714e79764152656899556b8edbdd6fa1237c4bca377534625f45dd59934"
+    },
+    "corr_mtc9mnl0_31ulir": {
+      "id": "corr_mtc9mnl0_31ulir",
+      "tenantId": "tenant-internal",
+      "type": "METADATA_CORRECTION",
+      "status": "APPROVED",
+      "controlId": "CC6.1",
+      "originalEvidenceId": "evd_917ed59c3b34718f_mtc9mngf",
+      "originalEvidenceHash": "917ed59c3b34718fe987d0600884975a7264369a938d340c319e8f61d1a54cab",
+      "reason": "Valid correction to test transition hash chain validation",
+      "proposedChanges": {
+        "test": true
+      },
+      "requestedByUserId": "usr_editor_1",
+      "requestedByUserEmail": "editor@internal.soc2",
+      "requestedByUserRole": "editor",
+      "requestedAt": "2026-08-28T01:21:05.508Z",
+      "isEmergency": false,
+      "auditTrail": [
+        {
+          "transitionId": "tr_mtc9mnl1_0",
+          "fromStatus": "OPEN",
+          "toStatus": "OPEN",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "SUBMIT",
+          "timestamp": "2026-08-28T01:21:05.508Z",
+          "reason": "Valid correction to test transition hash chain validation",
+          "auditLogEventId": "evt_1787880065509_u7e68yu",
+          "transitionHash": "435b3dea1d96ab4a1c6d92c305d0c0de4d4f229a173b23703c7c2da83ae89a0a"
+        },
+        {
+          "transitionId": "tr_mtc9mnl2_1",
+          "fromStatus": "OPEN",
+          "toStatus": "UNDER_REVIEW",
+          "actorId": "usr_editor_1",
+          "actorEmail": "editor@internal.soc2",
+          "actorRole": "editor",
+          "action": "MALICIOUS_ACTION_INJECTION",
+          "timestamp": "2026-08-28T01:21:05.509Z",
+          "auditLogEventId": "evt_1787880065510_6guzd5g",
+          "transitionHash": "741123344582fd6fcd70e1bd7ca302eaee60a0efdbedb621db0416ed82320281"
+        },
+        {
+          "transitionId": "tr_mtc9mnl3_2",
+          "fromStatus": "UNDER_REVIEW",
+          "toStatus": "APPROVED",
+          "actorId": "usr_checker_1",
+          "actorEmail": "checker@internal.soc2",
+          "actorRole": "admin",
+          "action": "APPROVE",
+          "timestamp": "2026-08-28T01:21:05.510Z",
+          "reason": "Correction approved after dual-control review.",
+          "auditLogEventId": "evt_1787880065511_hgn4t64",
+          "transitionHash": "d18233d5d97cf8c48a1d5cc2f7d7f8c12213540773ef3a7e5c24903bfa650eff"
+        }
+      ],
+      "stateTransitionHash": "d18233d5d97cf8c48a1d5cc2f7d7f8c12213540773ef3a7e5c24903bfa650eff",
+      "reviewerUserId": "usr_editor_1",
+      "reviewerUserEmail": "editor@internal.soc2",
+      "reviewedAt": "2026-08-28T01:21:05.509Z",
+      "approverUserId": "usr_checker_1",
+      "approverUserEmail": "checker@internal.soc2",
+      "approverRole": "admin",
+      "approvedAt": "2026-08-28T01:21:05.510Z"
+    }
+  }
+}

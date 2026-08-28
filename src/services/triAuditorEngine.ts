@@ -944,6 +944,10 @@ class TriAuditorEngine {
     return this.consensusData;
   }
 
+  public getConsensusStates(): ControlConsensusState[] {
+    return this.consensusData;
+  }
+
   public getEvidenceLineage(): EvidenceLineageRecord[] {
     return this.evidenceLineage;
   }
@@ -1102,6 +1106,9 @@ class TriAuditorEngine {
       }));
       this.notify();
     }, 25000);
+    if (this.continuousIntervalId && typeof this.continuousIntervalId.unref === 'function') {
+      this.continuousIntervalId.unref();
+    }
   }
 }
 

@@ -129,3 +129,34 @@ export async function createCanonicalEvidenceRecord(params: {
     reproducibilityNotes: params.reproducibilityNotes || 'Payload canonically serialized via RFC 8785 JCS; deterministic hash verified.'
   };
 }
+
+/**
+ * Cryptographically verifies a Canonical Evidence Record against tampering.
+ * Checks RFC 8785 canonical payload digest and chained evidence hash.
+ */
+export async function verifyEvidenceRecordIntegrity(
+  record: CanonicalEvidenceRecord
+): Promise<{ valid: boolean; error?: string }> {
+  try {
+    const recalculatedPayloadHash = await computeSha256Digest(canonicalizeJson(record.rawPayload));
+    if (recalculatedPayloadHash !== record.canonicalPayloadHash) {
+      return {
+        valid: false,
+        error: `Payload tampering detected: expected canonical digest ${record.canonicalPayloadHash}, got ${recalculatedPayloadHash}`
+      };
+    }
+
+    const chainInput = `${record.previousEvidenceHash}:${record.canonicalPayloadHash}:${record.controlId}:${record.collectionTimestamp}:${record.tenantId}`;
+    const recalculatedEvidenceHash = await computeSha256Digest(chainInput);
+    if (recalculatedEvidenceHash !== record.currentEvidenceHash) {
+      return {
+        valid: false,
+        error: `Evidence hash mismatch: expected ${record.currentEvidenceHash}, got ${recalculatedEvidenceHash}`
+      };
+    }
+
+    return { valid: true };
+  } catch (err: any) {
+    return { valid: false, error: err.message || 'Unknown verification error' };
+  }
+}
