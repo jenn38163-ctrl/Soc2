@@ -1,8 +1,8 @@
 # Phase C: Production Evidence Infrastructure Verification Status
 
-**Status:** IN PROGRESS / PENDING LIVE CLOUD PROVISIONING  
+**Status:** PENDING LIVE CLOUD CREDENTIAL ACTIVATION  
 **Baseline Release:** v1.0.1-rc1 (73/73 tests passing)  
-**Classification:** Internal Security & Compliance Engineering Verification  
+**Classification:** Primary Control Boundary for Production Evidence Verification  
 
 ---
 
@@ -14,28 +14,30 @@ Phase C converts our verified engineering security baseline into a verifiable pr
 
 ## Gate Status Summary
 
-- **C-01 PostgreSQL:** **PENDING** (Provisioning production-managed Cloud SQL instance & privilege validation)
-- **C-02 GCS WORM:** **PENDING** (Provisioning retention-locked GCS evidence bucket & IAM least-privilege binding)
-- **C-03 Evidence Writer:** **PENDING** (Execution of production evidence packaging with canonical SHA-256 manifests)
-- **C-04 Tamper Tests:** **PENDING** (Execution of live adversarial UPDATE/DELETE, retention-shortening, and auth bypass attempts)
-- **C-05 Recovery:** **PENDING** (Execution of PostgreSQL PITR restore and cryptographic hash-chain re-verification)
-- **C-06 Evidence Package:** **PENDING** (Assembly and vault archiving of formal Phase C compliance dossier)
-- **C-07 Independent Verification Boundary:** **PENDING** (Final independent security auditor review and attestation boundary freeze)
+- **C-01 PostgreSQL:** **PENDING**
+- **C-02 GCS WORM:** **PENDING**
+- **C-03 Evidence Writer:** **PENDING**
+- **C-04 Tamper Tests:** **PENDING**
+- **C-05 Recovery:** **PENDING**
+- **C-06 Evidence Package:** **PENDING**
+- **C-07 Independent Verification Boundary:** **PENDING**
 
 ---
 
 ## Gate Details & Verification Criteria
 
-### C-01 — Production PostgreSQL
+### C-01 — PostgreSQL
 - **Objective:** Provision managed PostgreSQL/Cloud SQL environment.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - Audit tables (`audit_logs`) and evidence tables (`evidence_records`) successfully created.
   - Immutability triggers active (`RAISE EXCEPTION` on UPDATE/DELETE).
   - Application database role privileges revoked for `UPDATE` and `DELETE`.
   - Migrations execute cleanly against production-equivalent database.
 
-### C-02 — Production GCS Evidence Vault
+### C-02 — GCS WORM
 - **Objective:** Provision production compliance evidence bucket.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - `RetainMode.COMPLIANCE` retention policy configured (7-year retention).
   - Retention lock active (non-shortenable).
@@ -46,6 +48,7 @@ Phase C converts our verified engineering security baseline into a verifiable pr
 
 ### C-03 — Evidence Writer
 - **Objective:** Perform production-equivalent evidence write.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - Evidence package generated with deterministic canonical manifest (RFC 8785).
   - SHA-256 hashes, chain metadata, timestamps, and release identifiers bound.
@@ -53,6 +56,7 @@ Phase C converts our verified engineering security baseline into a verifiable pr
 
 ### C-04 — Tamper Tests
 - **Objective:** Execute destructive adversarial attempts against live infrastructure.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - UPDATE/DELETE on PostgreSQL audit records fail.
   - GCS evidence object deletion blocked.
@@ -60,8 +64,9 @@ Phase C converts our verified engineering security baseline into a verifiable pr
   - Application auth bypass and actor spoofing blocked.
   - Maker self-approval and unauthorized corrections rejected.
 
-### C-05 — Recovery Verification
+### C-05 — Recovery
 - **Objective:** Validate disaster recovery and cryptographic integrity retention.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - PostgreSQL point-in-time recovery (PITR) executed successfully.
   - Evidence vault read recovery verified.
@@ -69,12 +74,14 @@ Phase C converts our verified engineering security baseline into a verifiable pr
 
 ### C-06 — Evidence Package
 - **Objective:** Produce formal Phase C audit evidence package.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - Dossier compiled containing environment IDs, IAM evidence, database controls, GCS retention configs, tamper results, recovery logs, and SHA-256 manifests.
   - Evidence package securely archived in the WORM vault.
 
-### C-07 — Independent Verification Boundary
+### C-07 — Independent Verification
 - **Objective:** Maintain strict separation of assurance tiers.
+- **Status:** **PENDING**
 - **Verification Criteria:**
   - Maintain distinction between:
     1. **ENGINEERING VERIFIED**
